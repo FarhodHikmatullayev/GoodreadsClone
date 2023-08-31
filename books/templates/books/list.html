@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Books list{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+
+        <div class="row-form-errors mt-5 mb-2 ms-3">
+            <div class="col-4">
+                <form method="get" class="d-flex">
+                    <input type="search" placeholder="search" name="q" class="form-control" value={{ value }}>
+                    <button class="btn btn-success ms-2">Search</button>
+                </form>
+            </div>
+
+        </div>
+
+
+        <h3 class="ms-4">
+            <b>BOOKS LIST</b>
+        </h3>
+
+        {% if books %}
+            {% for book in books %}
+                <div class="row">
+                    <div class="col-2">
+                        <img src="{{ book.cover_picture.url }}" alt="" style="width: 200px">
+                    </div>
+                    <div class="col-9">
+                        <a href="{% url 'books:detail' book.id %}" style="font-size: 20px">{{ book.title }}</a>
+                        <p>{{ book.description|truncatechars:500 }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+        {% else %}
+            <p>No books found.</p>
+        {% endif %}
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if books.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ books.previous_page_number }}">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>
+            {% endif %}
+
+            {% for number in books.paginator.page_range %}
+                <li class="page-item"><a class="page-link" href="?page={{ number }}">{{ number }}</a></li>
+            {% endfor %}
+            {% if books.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ books.next_page_number }}">Next</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Next</span>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+
+{% endblock %}

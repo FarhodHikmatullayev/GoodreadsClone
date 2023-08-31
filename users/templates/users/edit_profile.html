@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Profile edit{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a href="{% url 'users:profile' %}" class="btn btn-secondary">Cancel</a>
+
+            </form>
+        </div>
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title0 %}Delete Review{% endblock %}
+
+{% block content %}
+
+    <h3>
+        <b>
+            Rostdan ham ushbu reviewni o'chirmoqchimisiz?
+        </b>
+    </h3>
+
+    <p>
+        <b>Book:</b> {{ book.title }}
+    </p>
+    <p>
+        <b>Review:</b>{{ review.comment }}
+    </p>
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-outline-primary" type="submit">Yes</button>
+        <a href="{% url 'books:detail' book.id %}" class="btn btn-outline-danger">Now</a>
+    </form>
+
+
+
+{% endblock %}
